@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <vector>
 #include <random>
@@ -27,4 +27,27 @@ public:
     RandomIntGenerator& operator=(RandomIntGenerator&&) noexcept = default;
 
     int next();
+};
+
+class SequenceGenerator {
+private:
+    Point current_y;
+    std::vector<Point> base_points;
+    bool first_call = true;
+    RandomIntGenerator _randomNumbers;
+    bool set(const std::vector<Point>& bases, const Point& x0);
+    SequenceGenerator() = default;
+
+public:
+
+    SequenceGenerator(Point x0, const std::vector<Point>& bases);
+    ~SequenceGenerator() = default;
+
+    SequenceGenerator(const SequenceGenerator&) = delete;
+    SequenceGenerator& operator=(const SequenceGenerator&) = delete;
+
+    SequenceGenerator(SequenceGenerator&&) noexcept = default;
+    SequenceGenerator& operator=(SequenceGenerator&&) noexcept = default;
+    
+    Point operator()();
 };
