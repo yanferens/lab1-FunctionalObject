@@ -17,3 +17,16 @@ RandomIntGenerator::RandomIntGenerator():RandomIntGenerator(0, 0) {}
 int RandomIntGenerator::next() {
     return distribution(engine);
 }
+
+Point SequenceGenerator::operator()() {
+    if (first_call) {
+        first_call = false;
+        return current_y;
+    }
+
+    int idx = _randomNumbers.next();
+    const Point& b_k = base_points[idx - 1];
+
+    current_y = (b_k + current_y) / 2.0;
+    return current_y;
+}
