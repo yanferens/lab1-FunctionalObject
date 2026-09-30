@@ -1,3 +1,5 @@
+﻿//Compiler: MSVC v143 (Visual Studio 2022)
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -60,7 +62,49 @@ void getInputData(int& n, Point& x0, vector<Point>& base_points) {
     in.close();
 }
 
+
+void printInputMessage(int n, const Point& x0, const vector<Point>& base_points) {
+    cout << "Number of points to generate (n): " << n << endl;
+    cout << "Initial point (x0): (" << x0.x << ", " << x0.y << ")" << endl;
+    cout << "Base points size: " << base_points.size() << endl;
+}
+
+
+void getPoints(ofstream& out, int n, const Point& x0, const vector<Point>& base_points) {
+    SequenceGenerator generator(x0, base_points);
+    for (int i = 0; i < n; ++i) {
+        Point p = generator();
+        out << p.x << " " << p.y << "\n";
+    }
+}
+
+void printOutputMessage(int n) {
+    cout << "Generated " << n << " points and saved to output.txt" << endl;
+}
+
+void writeOutputInfo(int n, const Point& x0, const vector<Point>& base_points) {
+    ofstream out("output.txt");
+    checkOut(out);
+    getPoints(out, n, x0, base_points);
+    printOutputMessage(n);
+    out.close();
+}
+
+
 int main() {
+    try {
+        int n;
+        Point x0;
+        vector<Point> base_points;
+
+        getInputData(n, x0, base_points);
+        printInputMessage(n, x0, base_points);
+        writeOutputInfo(n, x0, base_points);
+    }
+    catch (const exception& e) {
+        cerr << "Error: " << e.what() << endl;
+    }
 
 }
+
 
