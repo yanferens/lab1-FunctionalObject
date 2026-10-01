@@ -1,4 +1,5 @@
 ﻿//Compiler: MSVC v143 (Visual Studio 2022)
+//Compiler: GCC (MinGW)
 
 #include <iostream>
 #include <fstream>
